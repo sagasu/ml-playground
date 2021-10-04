@@ -47,5 +47,16 @@ ann = tf.keras.models.Sequential()
 ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
 #add second hidden layer
 ann.add(tf.keras.layers.Dense(units=6, activation='relu'))
-#add output layer
+#add output layer - only one layer, because the result of the network is 0 or 1 - which stands for if a bank user left bank or is still with the bank
+# if there were 3 values in a response - 0,1,2 we would need 3 neurons in output layer, not 2 :) to indicate if each of them has a property that may not be related with each other.
+# sigmoid is best of output, because it also gives probability and not only the output
 ann.add(tf.keras.layers.Dense(units=1, activation='sigmoid'))
+
+# set properties for training nn
+# binary-crossentropy is good only for two outputs, adam is one of algorithms for setting weights during back propagation
+# notice that metrics, can be an array of properties, here we judge only by accuracy
+ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+# train nn
+# typically people will use batch_size set to 32
+ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
