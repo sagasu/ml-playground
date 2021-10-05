@@ -60,3 +60,8 @@ ann.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accura
 # train nn
 # typically people will use batch_size set to 32
 ann.fit(X_train, y_train, batch_size = 32, epochs = 100)
+
+
+# check if a users with specific parameters stays in the bank:
+# notice that we also standardize user info before we check the prediction, because our model was standardize before it was toughted.
+print(ann.predict(sc.transform([[1, 0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])) > 0.5)
